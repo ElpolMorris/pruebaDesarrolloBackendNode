@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 
 
-const enviarCorreo = async (to,subjet,html) =>{
+const enviarCorreo = async (to,html) =>{
     let transporter =  nodemailer.createTransport({
         service: "gmail",
         auth:{
@@ -12,7 +12,7 @@ const enviarCorreo = async (to,subjet,html) =>{
     let mailOptions = {
         from: 'nodemailerADL@gmail.com',
         to,
-        subjet,
+        subject: 'Felicidades!!!! haz ganado el premio gordo',
         html
 
     }

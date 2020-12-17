@@ -19,7 +19,7 @@ http.createServer(async(req,res)=>{
         fs.writeFileSync('./datosJson/usuarios.json',JSON.stringify({usuarios}))
         res.end(JSON.stringify({usuarios}))
     }
-    if(req.url.startsWith('/usuario') && req.method == 'GET'){
+    if(req.url.startsWith('/usuarios') && req.method == 'GET'){
         res.setHeader('Content-Type','application/json')
         let listaUsuariosConcurso = fs.readFileSync('./datosJson/usuarios.json','utf8')
         res.end(listaUsuariosConcurso)
@@ -45,13 +45,11 @@ http.createServer(async(req,res)=>{
     //ruta ganador
     if(req.url.startsWith('/ganador') && req.method == 'GET'){
         let posicionesTotalArregloUsuarios = usuarios.length-1
-        console.log(posicionesTotalArregloUsuarios)
         let usuarioGanador = usuarios[(Math.floor(Math.random() * Math.floor(posicionesTotalArregloUsuarios)))]
         let mensajeGanador = `<h2>Felicidades ${usuarioGanador.nombre},</h2>
             <p>haz ganado el premio Gordo del Sorteo de ${premio.nombre}.</p>
             <p>A la brevedad nos contactaremos contigo para coordinar la entrega de tu premio</p>`
-        let tituloCorreoGanador = `Felicidades!!!! haz ganado el premio gordo` 
-        enviarCorreo([usuarioGanador.correo, 'pmorales.contacto@gmail.com'],tituloCorreoGanador,mensajeGanador)
+        enviarCorreo([usuarioGanador.correo, 'pmorales.contacto@gmail.com'], mensajeGanador)
         res.end(JSON.stringify(usuarioGanador))
     }
 })
