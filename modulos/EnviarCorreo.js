@@ -12,7 +12,7 @@ const enviarCorreo = async (to,html) =>{
     let mailOptions = {
         from: 'nodemailerADL@gmail.com',
         to,
-        subject: 'Felicidades!!!! haz ganado el premio gordo',
+        subject: '¡Ya tenemos Ganador del concurso!',
         html
 
     }

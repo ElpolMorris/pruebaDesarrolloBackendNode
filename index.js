@@ -44,12 +44,14 @@ http.createServer(async(req,res)=>{
     }
     //ruta ganador
     if(req.url.startsWith('/ganador') && req.method == 'GET'){
+        let obtenerCorreosParticipantes = await usuarios.map((u)=>u.correo)
         let posicionesTotalArregloUsuarios = usuarios.length-1
         let usuarioGanador = usuarios[(Math.floor(Math.random() * Math.floor(posicionesTotalArregloUsuarios)))]
-        let mensajeGanador = `<h2>Felicidades ${usuarioGanador.nombre},</h2>
-            <p>haz ganado el premio Gordo del Sorteo de ${premio.nombre}.</p>
-            <p>A la brevedad nos contactaremos contigo para coordinar la entrega de tu premio</p>`
-        enviarCorreo([usuarioGanador.correo, 'pmorales.contacto@gmail.com'], mensajeGanador)
+        let mensajeGanador = `<h2>Felicidades a ${usuarioGanador.nombre},</h2>
+            <p>que ha ganado el premio Gordo de nuestro sorteo. Te ganaste lo siguiente: ${premio.nombre}.</p>
+            <p>A la brevedad nos contactaremos contigo para coordinar la entrega de tu premio</p>
+            <p>y para el resto, no se desanimen porque se vienen más sorpresas</p>`
+        enviarCorreo([...obtenerCorreosParticipantes, 'pmorales.contacto@gmail.com'], mensajeGanador)
         res.end(JSON.stringify(usuarioGanador))
     }
 })
