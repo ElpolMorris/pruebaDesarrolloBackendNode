@@ -6,6 +6,14 @@ const enviarCorreo = require('./modulos/EnviarCorreo')
 http.createServer(async(req,res)=>{
     let {usuarios} = JSON.parse(fs.readFileSync('./datosJson/usuarios.json','utf8')) //JSON usuarios parseado
     let premio = JSON.parse(fs.readFileSync('./datosJson/premio.json','utf8'))
+    let rutas = usuarios.map((r)=> r = `/${r.id}`)
+    //opcional
+    if(req.url == rutas.find((r)=> r == req.url) && req.method == 'GET'){
+        const endPointId = req.url.slice(1)
+        res.setHeader('Content-Type','application/json')
+        const datosUsuarioBuscado = usuarios.filter(u=>u.id == endPointId)
+        res.end(JSON.stringify(datosUsuarioBuscado))
+    }
     //ruta raiz
     if(req.url == '/' && req.method == 'GET'){
         res.setHeader('Content-Type','text/html')
